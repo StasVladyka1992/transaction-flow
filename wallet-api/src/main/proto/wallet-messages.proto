@@ -1,0 +1,34 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+package com.gamingtec.wallet;
+
+message BalanceRequest {
+  uint32 partyId = 1;
+  string currency = 2;
+  string gameProvider = 3;
+  string gameId = 4;
+}
+
+message Balance{
+  DecimalValue balance = 1;
+}
+
+message DecimalValue {
+  uint32 scale = 1;
+  uint32 precision = 2;
+  bytes value = 3;
+}
+
+message OptionalUInt64Value {
+  google.protobuf.UInt64Value result = 1;
+}
+
+message OptionalUInt32Value {
+  google.protobuf.UInt32Value result = 1;
+}
+
+message OptionalStringValue{
+  google.protobuf.StringValue result = 1;
+}

@@ -1,0 +1,8 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9095
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    com.gamingtec.services: INFO
