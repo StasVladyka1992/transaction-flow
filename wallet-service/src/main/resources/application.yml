@@ -1,0 +1,33 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9095
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      transaction-id-prefix: tx-
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+#      group-id: group_id
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      bootstrap-servers: localhost:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    org.springframework.kafka: info
+    org.springframework.transaction: trace
+    org.springframework.kafka.transaction: debug
+
+server:
+  port: ${WEB_PORT:8082}
+grpc:
+  server:
+    port: ${GRPC_PORT:9899}

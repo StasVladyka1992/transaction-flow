@@ -1,6 +1,8 @@
 spring:
   kafka:
     bootstrap-servers: localhost:9095
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 logging:
   config: classpath:log4j2.xml

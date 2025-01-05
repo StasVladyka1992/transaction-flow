@@ -1,6 +1,7 @@
 package com.gamingtec.services.walletgrpcclient;
 
 import com.gamingtec.services.walletapi.WalletClient;
+import com.gamingtec.services.walletapi.dto.BalanceReqDto;
 import com.gamingtec.wallet.WalletApiGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -14,5 +15,10 @@ public class WalletGrpcClientImpl implements WalletClient {
         .usePlaintext()
         .build();
     this.client = WalletApiGrpc.newBlockingStub(managedChannel);
+  }
+
+  @Override
+  public void balanceRequest(BalanceReqDto dto) {
+//    client.balance(/)
   }
 }

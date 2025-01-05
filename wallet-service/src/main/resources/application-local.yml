@@ -1,0 +1,8 @@
+logging:
+  config: classpath:log4j2-local.xml
+
+server:
+  port: ${WEB_PORT:8082}
+grpc:
+  server:
+    port: ${GRPC_PORT:9899}

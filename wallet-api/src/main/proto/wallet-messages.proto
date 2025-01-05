@@ -1,17 +1,17 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
+//import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 
 package com.gamingtec.wallet;
 
-message BalanceRequest {
+message BalanceRequestGrpc {
   uint32 partyId = 1;
   string currency = 2;
   string gameProvider = 3;
   string gameId = 4;
 }
 
-message Balance{
+message BalanceGrpc{
   DecimalValue balance = 1;
 }
 
