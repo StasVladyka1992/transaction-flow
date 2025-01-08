@@ -5,8 +5,12 @@ import com.gamingtec.services.walletapi.dto.BalanceReqDto;
 import com.gamingtec.wallet.WalletApiGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@RequiredArgsConstructor
 public class WalletGrpcClientImpl implements WalletClient {
   private WalletApiGrpc.WalletApiBlockingStub client;
 
@@ -16,6 +20,7 @@ public class WalletGrpcClientImpl implements WalletClient {
         .build();
     this.client = WalletApiGrpc.newBlockingStub(managedChannel);
   }
+
 
   @Override
   public void balanceRequest(BalanceReqDto dto) {

@@ -1,7 +1,7 @@
 package com.gamingtec.services.provider.kafka.listener;
 
 import com.gamingtec.services.event.dto.BalanceEvent;
-import com.gamingtec.services.provider.controller.dto.BalanceDto;
+import com.gamingtec.services.provider.route.adapter.controller.dto.BalanceDto;
 import com.gamingtec.services.provider.service.wallet.WalletService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

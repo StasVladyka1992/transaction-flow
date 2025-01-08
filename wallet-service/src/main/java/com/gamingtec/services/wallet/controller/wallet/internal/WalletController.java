@@ -5,7 +5,7 @@ import com.gamingtec.services.wallet.service.wallet.api.WalletService;
 import com.gamingtec.services.wallet.service.wallet.api.model.BalanceReq;
 import com.gamingtec.wallet.WalletApiGrpc;
 import com.gamingtec.wallet.WalletMessages;
-import com.google.protobuf.Empty;
+import com.google.protobuf.ByteString;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,19 @@ public class WalletController extends WalletApiGrpc.WalletApiImplBase {
 
   @Override
   public void balanceRequest(WalletMessages.BalanceRequestGrpc grpcReq,
-                             StreamObserver<Empty> responseObserver) {
+                             StreamObserver<WalletMessages.BalanceGrpc> responseObserver) {
     try {
       BalanceReq req = walletGrpcMapper.mapToBalanceReq(grpcReq);
       log.info("Received balance request: {}", req);
-//      walletService.balanceRequest(req);
+      responseObserver.onNext(WalletMessages.BalanceGrpc.newBuilder()
+          .setBalance(WalletMessages.DecimalValue.newBuilder()
+//              ByteString.copyFrom(rate.unscaledValue().toByteArray()
+              .setValue(ByteString.copyFromUtf8("200"))
+              .setScale(2)
+              .setPrecision(2)
+              .build())
+          .build());
+      responseObserver.onCompleted();
     } catch (Exception e) {
       handleErrorResult(responseObserver, e.getMessage());
     }

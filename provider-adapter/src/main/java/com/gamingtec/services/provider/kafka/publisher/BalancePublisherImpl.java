@@ -1,7 +1,7 @@
 package com.gamingtec.services.provider.kafka.publisher;
 
 import com.gamingtec.services.event.dto.BalanceReqEvent;
-import com.gamingtec.services.provider.controller.dto.BalanceReqDto;
+import com.gamingtec.services.provider.route.adapter.controller.dto.BalanceReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

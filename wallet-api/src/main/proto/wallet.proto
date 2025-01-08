@@ -5,5 +5,5 @@ import "wallet-messages.proto";
 package com.gamingtec.wallet;
 
 service WalletApi {
-  rpc balanceRequest(BalanceRequestGrpc) returns (google.protobuf.Empty) {}
+  rpc balanceRequest(BalanceRequestGrpc) returns (BalanceGrpc) {}
 }
