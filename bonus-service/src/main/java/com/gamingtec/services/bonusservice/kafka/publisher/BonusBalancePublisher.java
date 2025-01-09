@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BonusBalancePublisher {
-  private final KafkaTemplate<String, BonusBalanceEvent> bonusBalanceTemplate;
+  private final KafkaTemplate<Integer, BonusBalanceEvent> bonusBalanceTemplate;
 
   public void sendBonusBalanceEvent(BonusBalanceEvent event) {
-    bonusBalanceTemplate.send("bonus-balance", event);
+    bonusBalanceTemplate.send("bonus-balance", event.getPartyId(), event);
   }
 }

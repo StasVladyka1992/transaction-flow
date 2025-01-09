@@ -1,14 +1,20 @@
 package com.gamingtec.services.event.dto;
 
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class BonusBalanceEvent {
-  private String eventId;
+  private Long id;
+  private Integer partyId;
+  private BigDecimal amount;
+  private EventStatus status;
 }

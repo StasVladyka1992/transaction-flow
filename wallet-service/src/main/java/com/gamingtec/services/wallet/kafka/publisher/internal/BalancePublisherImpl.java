@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 class BalancePublisherImpl implements BalancePublisher {
-  private final KafkaTemplate<String, BalanceEvent> balanceTemplate;
+  private final KafkaTemplate<Integer, BalanceEvent> balanceTemplate;
 
   @Override
-  public void sendBalanceEvent(BalanceEvent balanceEvent) {
+  public void sendBalanceEvent(BalanceEvent event) {
     try {
-      balanceTemplate.send("balance", balanceEvent);
+      balanceTemplate.send("balance", event.getPartyId(), event);
     } catch (Exception e) {
       log.error(e.getMessage(), e);
     }

@@ -1,21 +1,17 @@
-package com.gamingtec.services.event.dto;
+package com.gamingtec.services.wallet.service.balance.model;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BalanceEvent {
+public class Balance {
   private Long id;
   private Integer partyId;
-  private BigDecimal cashBalance;
-  private BigDecimal bonusBalance;
-  private EventStatus status;
+  private BigDecimal balance;
 }

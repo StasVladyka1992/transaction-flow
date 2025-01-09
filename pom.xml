@@ -8,7 +8,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>provider-adapter</module>
         <module>wallet-api</module>
         <module>wallet-service</module>
         <module>bonus-service</module>

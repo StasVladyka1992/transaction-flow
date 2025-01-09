@@ -1,8 +1,8 @@
 package com.gamingtec.services.bonusservice.service;
 
 
-import com.gamingtec.services.event.dto.BonusBalanceReqEvent;
+import com.gamingtec.services.event.dto.BalanceEvent;
 
 public interface BonusWalletService {
-  void getBalance(BonusBalanceReqEvent event);
+  void getBalance(BalanceEvent event);
 }
