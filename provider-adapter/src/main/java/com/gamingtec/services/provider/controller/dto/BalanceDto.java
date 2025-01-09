@@ -1,5 +1,6 @@
-package com.gamingtec.services.provider.route.adapter.controller.dto;
+package com.gamingtec.services.provider.controller.dto;
 
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,5 +16,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public class BalanceDto {
   private Integer partyId;
-  private String sessionId;
+  private BigDecimal balance;
 }

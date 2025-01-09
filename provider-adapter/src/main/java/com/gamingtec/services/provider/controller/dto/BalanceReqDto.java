@@ -1,4 +1,4 @@
-package com.gamingtec.services.provider.route.adapter.controller.dto;
+package com.gamingtec.services.provider.controller.dto;
 
 import lombok.*;
 

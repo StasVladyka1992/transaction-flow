@@ -4,8 +4,14 @@ spring:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
+camel:
+  servlet:
+    mapping:
+      context-path: /api/*
+
 logging:
   config: classpath:log4j2.xml
   level:
+    io.swagger: DEBUG
     com.gamingtec.services: INFO
     org.apache.camel: INFO
