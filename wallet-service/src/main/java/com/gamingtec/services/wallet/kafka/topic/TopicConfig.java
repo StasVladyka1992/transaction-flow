@@ -7,17 +7,25 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class TopicConfig {
+//  @Bean
+//  public NewTopic cashBalance() {
+//    return TopicBuilder.name("cash-balance")
+//        .partitions(3)
+//        .compact()
+//        .build();
+//  }
+
   @Bean
-  public NewTopic cashBalance() {
-    return TopicBuilder.name("cash-balance")
+  public NewTopic balanceRequest() {
+    return TopicBuilder.name("balance-request")
         .partitions(3)
         .compact()
         .build();
   }
 
   @Bean
-  public NewTopic bonusBalance() {
-    return TopicBuilder.name("bonus-balance")
+  public NewTopic balance() {
+    return TopicBuilder.name("balance")
         .partitions(3)
         .compact()
         .build();
