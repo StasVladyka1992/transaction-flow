@@ -1,6 +1,6 @@
 package com.gamingtec.services.provider.route.route;
 
-import com.gamingtec.services.provider.route.route.transformer.MapperToGrpc;
+import com.gamingtec.services.provider.route.route.mapper.BalanceRequestGrpcMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 class WalletBalanceRouteConfig extends RouteBuilder {
-  private final MapperToGrpc mapperToGrpc;
+  private final BalanceRequestGrpcMapper balanceRequestGrpcMapper;
 
   @Override
   public void configure() {
@@ -19,14 +19,12 @@ class WalletBalanceRouteConfig extends RouteBuilder {
 //    from("rest:get:camel/wallet/balance")
 //    from("timer://grpc-timer?period=10000")
         .log("Received balance request: ${body}")
-        .bean(mapperToGrpc)
-//        .convertBodyTo(String.class) - doesn't work for some reasons
-//        .setBody(constant(WalletMessages.BalanceRequestGrpc.getDefaultInstance()))
+        .bean(balanceRequestGrpcMapper)
+//        .convertBodyTo(WalletMessages.BalanceRequestGrpc.class) - doesn't work for some reasons
         .to("grpc://127.0.0.1:9899/com.gamingtec.wallet.WalletApi?method=balanceRequest"
             + "&synchronous=true"
             + "&streamRepliesTo=direct:walletBalanceResponse")
         .log("Response from walletBalanceResponse: ${body}");
-
 //        .split(body()) // The response is a stream, so we split it into individual Account objects
 //        .log("Received account details")
 //        .process(exchange -> {

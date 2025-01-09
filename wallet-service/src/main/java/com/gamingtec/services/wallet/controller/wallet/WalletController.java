@@ -1,8 +1,5 @@
-package com.gamingtec.services.wallet.controller.wallet.internal;
+package com.gamingtec.services.wallet.controller.wallet;
 
-import com.gamingtec.services.wallet.controller.wallet.internal.mapper.WalletGrpcMapper;
-import com.gamingtec.services.wallet.service.wallet.api.WalletService;
-import com.gamingtec.services.wallet.service.wallet.api.model.BalanceReq;
 import com.gamingtec.wallet.WalletApiGrpc;
 import com.gamingtec.wallet.WalletMessages;
 import com.google.protobuf.ByteString;
@@ -16,18 +13,13 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
 @RequiredArgsConstructor
 public class WalletController extends WalletApiGrpc.WalletApiImplBase {
-  private final WalletService walletService;
-  private final WalletGrpcMapper walletGrpcMapper;
-
   @Override
   public void balanceRequest(WalletMessages.BalanceRequestGrpc grpcReq,
                              StreamObserver<WalletMessages.BalanceGrpc> responseObserver) {
     try {
-      BalanceReq req = walletGrpcMapper.mapToBalanceReq(grpcReq);
-      log.info("Received balance request: {}", req);
+      log.info("Received balance request: {}", grpcReq);
       responseObserver.onNext(WalletMessages.BalanceGrpc.newBuilder()
           .setBalance(WalletMessages.DecimalValue.newBuilder()
-//              ByteString.copyFrom(rate.unscaledValue().toByteArray()
               .setValue(ByteString.copyFromUtf8("200"))
               .setScale(2)
               .setPrecision(2)

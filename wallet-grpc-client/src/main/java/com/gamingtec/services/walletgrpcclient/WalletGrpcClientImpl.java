@@ -24,6 +24,5 @@ public class WalletGrpcClientImpl implements WalletClient {
 
   @Override
   public void balanceRequest(BalanceReqDto dto) {
-//    client.balance(/)
   }
 }

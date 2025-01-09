@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BonusBalanceReqEvent {
+public class BalanceRequestEvent {
   private Integer partyId;
   private String sessionId;
 }

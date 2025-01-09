@@ -1,4 +1,4 @@
-package com.gamingtec.services.bonusservice;
+package com.gamingtec.services.bonus;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

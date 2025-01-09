@@ -1,4 +1,4 @@
-package com.gamingtec.services.provider.route.route.transformer;
+package com.gamingtec.services.provider.route.route.mapper;
 
 
 import com.gamingtec.services.provider.route.adapter.controller.dto.BalanceReqDto;
@@ -6,9 +6,9 @@ import com.gamingtec.wallet.WalletMessages;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MapperToGrpc {
+public class BalanceRequestGrpcMapper {
 
-  public static WalletMessages.BalanceRequestGrpc toBalanceRequestGrpc(BalanceReqDto dto) {
+  public static WalletMessages.BalanceRequestGrpc toGrpc(BalanceReqDto dto) {
     return WalletMessages.BalanceRequestGrpc.getDefaultInstance();
   }
 }
