@@ -7,7 +7,7 @@ spring:
 camel:
   servlet:
     mapping:
-      context-path: /api/*
+      context-path: /root/*
 
 logging:
   config: classpath:log4j2.xml

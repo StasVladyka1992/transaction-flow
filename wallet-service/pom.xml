@@ -26,15 +26,26 @@
             <version>${project.version}</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.gamingtec.services</groupId>-->
+<!--            <artifactId>wallet-grpc-client</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.gamingtec.services</groupId>
-            <artifactId>wallet-grpc-client</artifactId>
+            <artifactId>wallet-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-kafka-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -86,17 +97,17 @@
 <!--            <version>${reactor-kafka.version}</version>-->
 <!--        </dependency>-->
 
-        <dependency>
-            <groupId>net.devh</groupId>
-            <artifactId>grpc-server-spring-boot-starter</artifactId>
-            <version>${grpc-starter.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.grpc</groupId>
-                    <artifactId>grpc-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.devh</groupId>-->
+<!--            <artifactId>grpc-server-spring-boot-starter</artifactId>-->
+<!--            <version>${grpc-starter.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>io.grpc</groupId>-->
+<!--                    <artifactId>grpc-core</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.mapstruct</groupId>

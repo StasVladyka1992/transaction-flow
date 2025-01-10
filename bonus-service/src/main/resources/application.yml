@@ -7,7 +7,7 @@ spring:
         spring.json.trusted.packages: "*"
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      transaction-id-prefix: tx-
+#      transaction-id-prefix: tx-
 #      group-id: group_id
 #      auto-offset-reset: earliest
 #      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

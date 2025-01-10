@@ -6,10 +6,10 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-@Setter
 @Getter
+@Setter
 @ToString
 @SuperBuilder
-public class BonusBalanceEvent extends Event {
+public class CashBalanceEvent extends Event {
   private BigDecimal balance;
 }

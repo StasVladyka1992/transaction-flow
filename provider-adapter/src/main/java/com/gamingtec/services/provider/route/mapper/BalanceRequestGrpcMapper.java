@@ -1,7 +1,7 @@
 package com.gamingtec.services.provider.route.mapper;
 
 
-import com.gamingtec.services.provider.controller.dto.BalanceReqDto;
+import com.gamingtec.services.provider.route.dto.BalanceReqDto;
 import com.gamingtec.wallet.WalletMessages;
 import org.springframework.stereotype.Component;
 

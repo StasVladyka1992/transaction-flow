@@ -1,15 +1,12 @@
 package com.gamingtec.services.event.dto;
 
-import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-@Setter
 @Getter
-@ToString
+@Setter
 @SuperBuilder
-public class BonusBalanceEvent extends Event {
-  private BigDecimal balance;
+public abstract class Event {
+  private String correlationId;
 }
