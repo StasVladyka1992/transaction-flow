@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <Properties>
+        <Property name="defaultRoute">$${env:LOG_DEFAULT_ROUTE:-file}</Property>
+        <Property name="filename">@log.root@/@pom.artifactId@.log</Property>
+        <Property name="filePattern">@log.root@/@pom.artifactId@-%d{yyyy-MM-dd}.%i.log.gz</Property>
+        <Property name="artifactId">@pom.artifactId@</Property>
+        <Property name="version">@pom.version@</Property>
+        <Property name="TOTAL_SIZE_CAP">$${env:LOG_TOTAL_SIZE_CAP:-20GB}</Property>
+        <Property name="MAX_HISTORY">$${env:LOG_MAX_HISTORY:-60}</Property>
+        <Property name="MAX_FILE_SIZE">$${env:LOG_MAX_FILE_SIZE:-500MB}</Property>
+        <Property name="MAX_KEEP_DAYS">$${env:LOG_MAX_KEEP_DAYS:-30}</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <EcsLayout serviceName="${artifactId}" serviceVersion="${version}"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${filename}" filePattern="${filePattern}" ignoreExceptions="false">
+            <EcsLayout serviceName="${artifactId}" serviceVersion="${version}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${MAX_FILE_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${MAX_HISTORY}">
+                <Delete basePath="@log.root@" maxDepth="2">
+                    <IfFileName glob="@pom.artifactId@-*.log.gz"/>
+                    <IfLastModified age="P${MAX_KEEP_DAYS}D"/>
+                    <IfAccumulatedFileSize exceeds="${TOTAL_SIZE_CAP}"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <Routing name="Default">
+            <Routes pattern="${defaultRoute}">
+                <Route ref="Console" key="stdout"/>
+                <Route ref="RollingFile" key="file"/>
+            </Routes>
+        </Routing>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.gamingtec" level="info" additivity="false">
+            <AppenderRef ref="Default"/>
+        </Logger>
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="Default"/>
+        </Logger>
+    </Loggers>
+</Configuration>

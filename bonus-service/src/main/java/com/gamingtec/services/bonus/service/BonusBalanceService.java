@@ -1,7 +1,8 @@
 package com.gamingtec.services.bonus.service;
 
-import com.gamingtec.services.event.dto.BalanceEvent;
+import com.gamingtec.services.event.dto.BalanceRequestEvent;
+import com.gamingtec.services.event.dto.BonusBalanceEvent;
 
 public interface BonusBalanceService {
-  void getBonusBalance(BalanceEvent event);
+  BonusBalanceEvent getBonusBalance(BalanceRequestEvent event);
 }

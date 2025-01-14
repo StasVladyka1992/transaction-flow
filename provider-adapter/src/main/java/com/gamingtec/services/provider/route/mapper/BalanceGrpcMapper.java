@@ -15,7 +15,7 @@ public class BalanceGrpcMapper {
         dto.getBalance().getScale(),
         mc);
     return BalanceDto.builder()
-        .partyId(1)
+        .partyId(dto.getPartyId())
         .balance(balance)
         .build();
   }

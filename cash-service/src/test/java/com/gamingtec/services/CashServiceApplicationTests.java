@@ -1,4 +1,4 @@
-package com.gamingtec.services.cashservice;
+package com.gamingtec.services;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,12 +1,23 @@
-spring:
-  kafka:
-    bootstrap-servers: localhost:9095
-    consumer:
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
-    producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#spring:
+#  kafka:
+#    bootstrap-servers: localhost:9095
+#    consumer:
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      properties:
+#        spring.json.trusted.packages: "*"
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+camel:
+  component:
+    kafka:
+      brokers: localhost:9095
+      valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 #      transaction-id-prefix: tx-
 #      group-id: group_id
 #      auto-offset-reset: earliest

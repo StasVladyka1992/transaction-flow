@@ -5,11 +5,8 @@ import com.gamingtec.wallet.WalletMessages;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ToBalanceRequestEventGrpcMapper {
+public class BalanceRequestEventMapper {
   public static BalanceRequestEvent toBalanceRequestEvent(WalletMessages.BalanceRequestGrpc requestEvent) {
-    return BalanceRequestEvent.builder()
-        .correlationId(String.valueOf(requestEvent.getPartyId()))
-        .partyId(requestEvent.getPartyId())
-        .build();
+    return new BalanceRequestEvent(requestEvent.getPartyId());
   }
 }

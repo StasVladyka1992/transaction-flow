@@ -1,0 +1,12 @@
+camel:
+  component:
+    kafka:
+      brokers: localhost:9095
+      valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+logging:
+  config: classpath:log4j2.xml
+server:
+  port: 8084

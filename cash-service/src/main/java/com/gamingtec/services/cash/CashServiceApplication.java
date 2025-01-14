@@ -1,4 +1,4 @@
-package com.gamingtec.services.cashservice;
+package com.gamingtec.services.cash;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

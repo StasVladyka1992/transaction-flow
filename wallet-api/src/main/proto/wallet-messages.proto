@@ -12,7 +12,8 @@ message BalanceRequestGrpc {
 }
 
 message BalanceGrpc{
-  DecimalValue balance = 1;
+  uint32 partyId = 1;
+  DecimalValue balance = 2;
 }
 
 message DecimalValue {

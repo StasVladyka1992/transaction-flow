@@ -1,15 +1,16 @@
 package com.gamingtec.services.event.dto;
 
 import java.math.BigDecimal;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@ToString
-@SuperBuilder
-public class CashBalanceEvent extends Event {
-  private BigDecimal balance;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class CashBalanceEvent extends AbstractBalanceEvent {
+    private Integer partyId;
+    private BigDecimal cashBalance;
 }
