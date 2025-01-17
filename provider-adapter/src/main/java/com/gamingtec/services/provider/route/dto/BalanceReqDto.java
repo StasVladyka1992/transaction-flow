@@ -9,6 +9,10 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class BalanceReqDto {
-    private Integer partyId;
-    private String sessionId;
+    private int partyId;
+    private int brandId;
+    private String gameId;
+    private String platformCode;
+    private String playerCurrency;
+    private Integer numDecimalParts;
 }

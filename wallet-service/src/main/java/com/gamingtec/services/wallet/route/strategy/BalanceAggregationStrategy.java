@@ -8,10 +8,12 @@ import com.gamingtec.services.event.dto.CashBalanceEvent;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class BalanceAggregationStrategy implements AggregationStrategy {
 
@@ -27,21 +29,29 @@ public class BalanceAggregationStrategy implements AggregationStrategy {
 
   private void handleBody(String correlationId, Object body) {
     BalanceEvent response = aggregatedResponses.computeIfAbsent(correlationId, k -> new BalanceEvent());
+    response.setCurrency("USD");
+    response.setPartyId(1);
+    response.setAccountId(1);
 
     if (body instanceof BonusBalanceEvent) {
-      response.setBonus(((BonusBalanceEvent) body).getBonusBalance());
+      BonusBalanceEvent bonusBalanceEvent = (BonusBalanceEvent) body;
+      response.setReleasedBonus(bonusBalanceEvent.getReleasedBonus());
+      response.setPlayableBonus(bonusBalanceEvent.getPlayableBonus());
     } else if (body instanceof CashBalanceEvent) {
-      response.setCash(((CashBalanceEvent) body).getCashBalance());
+      CashBalanceEvent cashBalanceEvent = (CashBalanceEvent) body;
+      response.setReal(cashBalanceEvent.getReal());
     }
 //    else if (body instanceof LoyaltyBalanceResponse) {
 //      response.setLoyaltyPoints(((LoyaltyBalanceResponse) body).getLoyaltyBalance());
 //    }
+
   }
 
   @Override
   public void onCompletion(Exchange exchange) {
     String correlationId = getCorrelationId(exchange);
     BalanceEvent response = aggregatedResponses.get(correlationId);
+    log.info("Received response for correlationId: {} is {}", correlationId, response);
     exchange.getMessage().setBody(response);
     releaseResources(exchange);
   }

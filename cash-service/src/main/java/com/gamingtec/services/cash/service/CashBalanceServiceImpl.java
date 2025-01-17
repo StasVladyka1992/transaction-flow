@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service("cashBalanceService")
+@Service
 @RequiredArgsConstructor
 class CashBalanceServiceImpl implements CashBalanceService {
 

@@ -12,7 +12,11 @@ class BonusBalanceServiceImpl implements BonusBalanceService {
 
   @Override
   public BonusBalanceEvent getBonusBalance(BalanceRequestEvent event) {
-    return new BonusBalanceEvent(event.getPartyId(), new BigDecimal("300"));
+    return BonusBalanceEvent.builder()
+        .partyId(event.getPartyId())
+        .releasedBonus(new BigDecimal(300))
+        .playableBonus(new BigDecimal(400))
+        .build();
   }
 }
 

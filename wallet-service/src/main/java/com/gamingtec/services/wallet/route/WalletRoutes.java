@@ -3,16 +3,14 @@ package com.gamingtec.services.wallet.route;
 import static com.gamingtec.services.event.util.Header.CORRELATION_ID;
 
 import com.gamingtec.services.event.dto.AbstractBalanceEvent;
-import com.gamingtec.services.wallet.route.mapper.BalanceRequestEventMapper;
-import com.gamingtec.services.wallet.route.mapper.ToBalanceGrpcEventMapper;
+import com.gamingtec.services.wallet.route.mapper.BalanceRequestMapper;
+import com.gamingtec.services.wallet.route.mapper.BalanceMapper;
 import com.gamingtec.services.wallet.route.strategy.BalanceAggregationStrategy;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
-import java.util.concurrent.Executors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.grpc.springboot.GrpcComponentConfiguration;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
 
@@ -21,26 +19,22 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WalletRoutes extends RouteBuilder {
   private final BalanceAggregationStrategy balanceAggregationStrategy;
-  private final BalanceRequestEventMapper balanceRequestEventMapper;
-  private final ToBalanceGrpcEventMapper toBalanceGrpcEventMapper;
-  private final GrpcComponentConfiguration grpcComponentConfiguration;
+  private final BalanceRequestMapper balanceRequestMapper;
+  private final BalanceMapper balanceMapper;
 
   @Override
   public void configure() {
-
-    from(
-        "grpc://localhost:9899/com.gamingtec.wallet.WalletApi?method=balanceRequest?consumerStrategy=PROPAGATION") //TODO check
+    from("grpc://localhost:9899/com.gamingtec.wallet.WalletApi?method=balanceRequest?consumerStrategy=PROPAGATION") //TODO check
         .setHeader(CORRELATION_ID, () -> UUID.randomUUID().toString())
         .log("Grpc request received")
-//        .threads().poolSize(50).maxQueueSize(200).maxPoolSize(100)
-        .bean(balanceRequestEventMapper)
+        .bean(balanceRequestMapper, "toBalanceRequestEvent")
         .marshal().json(JsonLibrary.Jackson)
         .process(exchange -> log.info("Balance request to kafka will be sent, headers: {}",
             exchange.getIn().getHeader(CORRELATION_ID)))
         .to("kafka:balanceRequest?brokers=localhost:9095")
         .pollEnrich("direct:aggregatedBalance", 1000)
         .log("Total balance: ${body}")
-        .bean(toBalanceGrpcEventMapper)
+        .bean(balanceMapper, "toBalanceGrpc")
         .log("Balance was sent by grpc");
 
     from("kafka:balance?brokers=localhost:9095")

@@ -25,18 +25,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>com.gamingtec.services</groupId>-->
-        <!--            <artifactId>wallet-api</artifactId>-->
-        <!--            <version>${project.version}</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>io.grpc</groupId>-->
-        <!--            <artifactId>grpc-netty-shaded</artifactId>-->
-        <!--            <version>1.58.0</version>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>com.gamingtec.services</groupId>
             <artifactId>wallet-grpc-client</artifactId>
@@ -83,31 +71,10 @@
             <artifactId>camel-spring-boot-starter</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.camel.springboot</groupId>-->
-<!--            <artifactId>camel-rest-starter</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.apache.camel.springboot</groupId>-->
-<!--            <artifactId>camel-openapi-java-starter</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
-<!--            <version>1.7.0</version> &lt;!&ndash; Use the latest version &ndash;&gt;-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-springdoc-starter</artifactId>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-undertow</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
@@ -118,6 +85,13 @@
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-jackson-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-spring-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 

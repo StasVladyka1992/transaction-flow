@@ -15,6 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BalanceDto {
-  private Integer partyId;
-  private BigDecimal balance;
+  private int partyId;
+  private int accountId;
+  private BigDecimal real;
+  private BigDecimal releasedBonus;
+  private BigDecimal playableBonus;
 }

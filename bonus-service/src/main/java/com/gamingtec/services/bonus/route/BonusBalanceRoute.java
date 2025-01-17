@@ -1,5 +1,6 @@
 package com.gamingtec.services.bonus.route;
 
+import com.gamingtec.services.bonus.service.BonusBalanceService;
 import com.gamingtec.services.event.dto.BalanceRequestEvent;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class BonusBalanceRoute extends RouteBuilder {
+  private final BonusBalanceService bonusBalanceService;
 
   @Override
   public void configure() {
@@ -16,7 +18,7 @@ public class BonusBalanceRoute extends RouteBuilder {
         .log("Received balance event: ${body}")
         .unmarshal().json(JsonLibrary.Jackson, BalanceRequestEvent.class)
         .log("Parsed balance request: ${body}")
-        .bean("bonusBalanceService", "getBonusBalance")
+        .bean(bonusBalanceService, "getBonusBalance")
         .log("Bonus balance: ${body}")
         .marshal().json(JsonLibrary.Jackson)
         .to("kafka:balance?brokers=localhost:9095")

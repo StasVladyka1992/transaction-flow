@@ -2,12 +2,16 @@ package com.gamingtec.services.event.dto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Getter;
+import lombok.Setter;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@Getter
+@Setter
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = false)
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = CashBalanceEvent.class, name = "cash"),
-    @JsonSubTypes.Type(value = BonusBalanceEvent.class, name = "bonus"),
-    @JsonSubTypes.Type(value = LoyaltyBalanceEvent.class, name = "loyalty")
+    @JsonSubTypes.Type(value = CashBalanceEvent.class, name = "CASH"),
+    @JsonSubTypes.Type(value = BonusBalanceEvent.class, name = "BONUS"),
+    @JsonSubTypes.Type(value = LoyaltyBalanceEvent.class, name = "LOYALTY")
 })
-public class AbstractBalanceEvent {
+public abstract class AbstractBalanceEvent {
 }

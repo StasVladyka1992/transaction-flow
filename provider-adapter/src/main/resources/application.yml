@@ -4,10 +4,12 @@ spring:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
-camel:
-  servlet:
-    mapping:
-      context-path: /root/*
+#By default all camel endpoints are mapped to route /camel ... if i want to change it to /, then i need to use docs below
+#aslo i need to specify in swagger root path
+#camel:
+#  servlet:
+#    mapping:
+#      context-path: /*
 
 logging:
   config: classpath:log4j2.xml

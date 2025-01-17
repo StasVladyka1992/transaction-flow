@@ -6,14 +6,19 @@ package com.gamingtec.wallet;
 
 message BalanceRequestGrpc {
   uint32 partyId = 1;
-  string currency = 2;
-  string gameProvider = 3;
-  string gameId = 4;
+  uint32 brandId = 2;
+  string gameId = 3;
+  string platformCode = 4;
+  string playerCurrency = 5;
+  uint32 numDecimalParts = 6;
 }
 
 message BalanceGrpc{
-  uint32 partyId = 1;
-  DecimalValue balance = 2;
+  uint32 accountId = 1;
+  uint32 partyId = 2;
+  DecimalValue real = 3;
+  DecimalValue releasedBonus = 4;
+  DecimalValue playableBonus = 5;
 }
 
 message DecimalValue {
