@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BalanceReqDto {
+public class BalanceRequestDto {
     private int partyId;
     private int brandId;
     private String gameId;

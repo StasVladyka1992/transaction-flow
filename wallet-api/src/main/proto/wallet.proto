@@ -5,5 +5,6 @@ import "wallet-messages.proto";
 package com.gamingtec.wallet;
 
 service WalletApi {
-  rpc balanceRequest(BalanceRequestGrpc) returns (BalanceGrpc) {}
+  rpc balance(BalanceRequestGrpc) returns (BalanceGrpc) {}
+  rpc bet(BetRequestGrpc) returns (BetResponseGrpc) {}
 }

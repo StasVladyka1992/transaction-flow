@@ -21,6 +21,24 @@ message BalanceGrpc{
   DecimalValue playableBonus = 5;
 }
 
+message BetRequestGrpc{
+  uint32 partyId = 1;
+  uint32 platformId = 2;
+  string platformCode = 3;
+  string gameId = 4;
+  uint32 gameInfoId = 5;
+  bool sportbook = 6;
+  string playerCurrency = 7;
+  string platformGameTranId = 8;
+  string platformTranId = 9;
+  DecimalValue amount = 10;
+}
+
+message BetResponseGrpc{
+  BalanceGrpc balance = 1;
+  uint64 transactionId = 2;
+}
+
 message DecimalValue {
   uint32 scale = 1;
   uint32 precision = 2;

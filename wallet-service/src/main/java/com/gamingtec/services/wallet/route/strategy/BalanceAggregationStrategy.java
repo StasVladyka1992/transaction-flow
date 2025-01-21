@@ -2,6 +2,7 @@ package com.gamingtec.services.wallet.route.strategy;
 
 import static com.gamingtec.services.event.util.Header.CORRELATION_ID;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamingtec.services.event.dto.BalanceEvent;
 import com.gamingtec.services.event.dto.BonusBalanceEvent;
 import com.gamingtec.services.event.dto.CashBalanceEvent;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class BalanceAggregationStrategy implements AggregationStrategy {
-
   private final Map<String, BalanceEvent> aggregatedResponses = new ConcurrentHashMap<>();
 
   @Override
@@ -29,9 +29,11 @@ public class BalanceAggregationStrategy implements AggregationStrategy {
 
   private void handleBody(String correlationId, Object body) {
     BalanceEvent response = aggregatedResponses.computeIfAbsent(correlationId, k -> new BalanceEvent());
-    response.setCurrency("USD");
-    response.setPartyId(1);
-    response.setAccountId(1);
+    if (response.getPartyId() == 0) {
+      response.setCurrency("USD");
+      response.setPartyId(1);
+      response.setAccountId(1);
+    }
 
     if (body instanceof BonusBalanceEvent) {
       BonusBalanceEvent bonusBalanceEvent = (BonusBalanceEvent) body;
@@ -41,10 +43,6 @@ public class BalanceAggregationStrategy implements AggregationStrategy {
       CashBalanceEvent cashBalanceEvent = (CashBalanceEvent) body;
       response.setReal(cashBalanceEvent.getReal());
     }
-//    else if (body instanceof LoyaltyBalanceResponse) {
-//      response.setLoyaltyPoints(((LoyaltyBalanceResponse) body).getLoyaltyBalance());
-//    }
-
   }
 
   @Override

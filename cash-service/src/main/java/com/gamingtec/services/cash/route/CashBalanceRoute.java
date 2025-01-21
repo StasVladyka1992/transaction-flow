@@ -3,6 +3,7 @@ package com.gamingtec.services.cash.route;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamingtec.services.cash.service.CashBalanceService;
 import com.gamingtec.services.event.dto.BalanceRequestEvent;
+import com.gamingtec.services.event.dto.BetRequestEvent;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
@@ -21,6 +22,16 @@ public class CashBalanceRoute extends RouteBuilder {
         .log("Parsed balance request: ${body}")
         .bean(cashBalanceService, "getCashBalance")
         .log("Cash balance: ${body}")
+        .marshal().json(JsonLibrary.Jackson)
+        .to("kafka:balance?brokers=localhost:9095")
+        .log("Cash balance was sent");
+
+    from("kafka:betRequest?brokers=localhost:9095")
+        .log("Received bet event: ${body}")
+        .unmarshal().json(JsonLibrary.Jackson, BetRequestEvent.class)
+        .log("Received bet event: ${body}")
+        .bean(cashBalanceService, "bet")
+        .log("Cash balance after bet: ${body}")
         .marshal().json(JsonLibrary.Jackson)
         .to("kafka:balance?brokers=localhost:9095")
         .log("Cash balance was sent");

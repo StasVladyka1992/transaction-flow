@@ -1,7 +1,9 @@
 package com.gamingtec.services.provider.route;
 
 import com.gamingtec.services.provider.route.dto.BalanceDto;
-import com.gamingtec.services.provider.route.dto.BalanceReqDto;
+import com.gamingtec.services.provider.route.dto.BalanceRequestDto;
+import com.gamingtec.services.provider.route.dto.BetRequestDto;
+import com.gamingtec.services.provider.route.dto.BetResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -35,9 +37,17 @@ public class RestWalletRoutes extends RouteBuilder {
 //        .param().name("partyId").type(RestParamType.query).required(true).endParam()
         .consumes(MediaType.APPLICATION_JSON_VALUE)
         .produces(MediaType.APPLICATION_JSON_VALUE)
-        .type(BalanceReqDto.class)
+        .type(BalanceRequestDto.class)
         .outType(BalanceDto.class)
         //        .responseMessage().code(200).message("All users successfully returned").endResponseMessage()
         .to("direct:grpcBalance");
+
+    rest("/wallet")
+        .post("/bet").description("bet")
+        .consumes(MediaType.APPLICATION_JSON_VALUE)
+        .produces(MediaType.APPLICATION_JSON_VALUE)
+        .type(BetRequestDto.class)
+        .outType(BetResponseDto.class)
+        .to("direct:grpcBet");
   }
 }

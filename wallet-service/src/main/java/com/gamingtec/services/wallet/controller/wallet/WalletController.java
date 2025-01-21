@@ -2,20 +2,32 @@ package com.gamingtec.services.wallet.controller.wallet;
 
 import com.gamingtec.wallet.WalletApiGrpc;
 import com.gamingtec.wallet.WalletMessages;
-import com.google.protobuf.ByteString;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import net.devh.boot.grpc.server.service.GrpcService;
 
-//@Slf4j
-//@GrpcService
-//@RequiredArgsConstructor
-//public class WalletController extends WalletApiGrpc.WalletApiImplBase {
+@Slf4j
+@RequiredArgsConstructor
+public class WalletController extends WalletApiGrpc.WalletApiImplBase {
+
+
+  @Override
+  public void balance(WalletMessages.BalanceRequestGrpc request,
+                      StreamObserver<WalletMessages.BalanceGrpc> responseObserver) {
+    super.balance(request, responseObserver);
+  }
+
+  @Override
+  public void bet(WalletMessages.BetRequestGrpc request,
+                  StreamObserver<WalletMessages.BetResponseGrpc> responseObserver) {
+    super.bet(request, responseObserver);
+  }
+
 //  @Override
 //  public void balanceRequest(WalletMessages.BalanceRequestGrpc grpcReq,
 //                             StreamObserver<WalletMessages.BalanceGrpc> responseObserver) {
+//    consumerTemplate.receive();
 //    try {
 //      log.info("Received balance request: {}", grpcReq);
 //      responseObserver.onNext(WalletMessages.BalanceGrpc.newBuilder()
@@ -30,10 +42,10 @@ import lombok.extern.slf4j.Slf4j;
 //      handleErrorResult(responseObserver, e.getMessage());
 //    }
 //  }
-//
-//  private <T> void handleErrorResult(StreamObserver<T> responseObserver, String message) {
-//    log.error("Call finished with error: {}", message);
-//    responseObserver.onError(Status.INTERNAL.withDescription(message).asException());
-//  }
-//}
+
+  private <T> void handleErrorResult(StreamObserver<T> responseObserver, String message) {
+    log.error("Call finished with error: {}", message);
+    responseObserver.onError(Status.INTERNAL.withDescription(message).asException());
+  }
+}
 

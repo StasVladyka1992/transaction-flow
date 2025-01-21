@@ -1,13 +1,13 @@
 package com.gamingtec.services.provider.route.mapper;
 
 
-import com.gamingtec.services.provider.route.dto.BalanceReqDto;
+import com.gamingtec.services.provider.route.dto.BalanceRequestDto;
 import com.gamingtec.wallet.WalletMessages;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BalanceRequestMapper {
-  public WalletMessages.BalanceRequestGrpc toGrpc(BalanceReqDto dto) {
+  public WalletMessages.BalanceRequestGrpc toGrpc(BalanceRequestDto dto) {
     return WalletMessages.BalanceRequestGrpc.newBuilder()
         .setPartyId(dto.getPartyId())
         .setBrandId(dto.getBrandId())

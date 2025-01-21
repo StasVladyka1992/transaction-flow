@@ -19,7 +19,6 @@
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-#spring boot kafka configs doesn't work for camel
 camel:
   component:
     kafka:
