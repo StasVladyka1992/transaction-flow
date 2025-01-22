@@ -16,9 +16,7 @@ import lombok.ToString;
 @ToString
 public class BetRequestEvent {
   private int partyId;
-
-  private BigDecimal amount;
-  private String currency;
+  private int accountId;
 
   private int brandId;
   private int platformId;
@@ -31,4 +29,10 @@ public class BetRequestEvent {
 
   private String platformGameTranId;
   private String platformTranId;
+
+  private String currency;
+
+  private BigDecimal real;
+  private BigDecimal releasedBonus;
+  private BigDecimal playableBonus;
 }

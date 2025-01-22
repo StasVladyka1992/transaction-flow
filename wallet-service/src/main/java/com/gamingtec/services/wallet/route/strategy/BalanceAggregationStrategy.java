@@ -39,9 +39,11 @@ public class BalanceAggregationStrategy implements AggregationStrategy {
       BonusBalanceEvent bonusBalanceEvent = (BonusBalanceEvent) body;
       response.setReleasedBonus(bonusBalanceEvent.getReleasedBonus());
       response.setPlayableBonus(bonusBalanceEvent.getPlayableBonus());
+      log.info("Received bonus balance response for correlationId: {} is {}", correlationId, bonusBalanceEvent);
     } else if (body instanceof CashBalanceEvent) {
       CashBalanceEvent cashBalanceEvent = (CashBalanceEvent) body;
       response.setReal(cashBalanceEvent.getReal());
+      log.info("Received cash balance response for correlationId: {} is {}", correlationId, cashBalanceEvent);
     }
   }
 
@@ -49,7 +51,6 @@ public class BalanceAggregationStrategy implements AggregationStrategy {
   public void onCompletion(Exchange exchange) {
     String correlationId = getCorrelationId(exchange);
     BalanceEvent response = aggregatedResponses.get(correlationId);
-    log.info("Received response for correlationId: {} is {}", correlationId, response);
     exchange.getMessage().setBody(response);
     releaseResources(exchange);
   }

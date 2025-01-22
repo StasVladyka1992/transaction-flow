@@ -16,6 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class BetBucket {
   private int partyId;
+  private int accountId;
 
   private BigDecimal amount;
   private String currency;

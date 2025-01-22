@@ -1,6 +1,8 @@
 package com.gamingtec.services.wallet.route;
 
 import static com.gamingtec.services.event.util.Header.CORRELATION_ID;
+import static com.gamingtec.services.wallet.route.util.RouteNames.DIRECT_GRPC_BALANCE_REQUEST;
+import static com.gamingtec.services.wallet.route.util.RouteNames.DIRECT_GRPC_BET_REQUEST;
 
 import com.gamingtec.services.wallet.route.mapper.BalanceMapper;
 import com.gamingtec.services.wallet.route.mapper.BalanceRequestMapper;
@@ -22,6 +24,7 @@ public class GrpcWalletRoutes extends RouteBuilder {
 
   @Override
   public void configure() throws Exception {
+//    from("grpc://localhost:9899/com.gamingtec.wallet.WalletApi?consumerStrategy=PROPAGATION")
     from("grpc://localhost:9899/com.gamingtec.wallet.WalletApi?consumerStrategy=PROPAGATION")
         .setHeader(CORRELATION_ID, () -> UUID.randomUUID().toString())
         .choice()
@@ -29,15 +32,17 @@ public class GrpcWalletRoutes extends RouteBuilder {
         .when(header("CamelGrpcMethodName").isEqualTo("balance"))
         .log("Grpc balance request received")
         .bean(balanceRequestMapper, "toBalanceRequestEvent")
-        .to("direct:grpcBalanceRequest")
+        .to(DIRECT_GRPC_BALANCE_REQUEST)
         .bean(balanceMapper, "toBalanceGrpc")
         .log("Balance was sent by grpc")
 
         .when(header("CamelGrpcMethodName").isEqualTo("bet"))
         .log("Grpc bet request received")
-        .bean(betRequestMapper, "toBetRequestEvent")
-        .to("direct:grpcBetRequest")
+        .bean(betRequestMapper, "toBetRequest")
+        .to(DIRECT_GRPC_BET_REQUEST)
         .bean(betResponseMapper, "toGrpc")
         .log("Bet response was sent by grpc");
+    //TODO use grpc marshall and unmarshal functionality to marshall and unmarshall automatically
+    // .marshal().protobuf(MyProtoMessage.class)  //
   }
 }

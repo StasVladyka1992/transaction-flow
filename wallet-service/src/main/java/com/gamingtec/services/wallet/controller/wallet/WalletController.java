@@ -12,17 +12,17 @@ import lombok.extern.slf4j.Slf4j;
 public class WalletController extends WalletApiGrpc.WalletApiImplBase {
 
 
-  @Override
-  public void balance(WalletMessages.BalanceRequestGrpc request,
-                      StreamObserver<WalletMessages.BalanceGrpc> responseObserver) {
-    super.balance(request, responseObserver);
-  }
-
-  @Override
-  public void bet(WalletMessages.BetRequestGrpc request,
-                  StreamObserver<WalletMessages.BetResponseGrpc> responseObserver) {
-    super.bet(request, responseObserver);
-  }
+//  @Override
+//  public void balance(WalletMessages.BalanceRequestGrpc request,
+//                      StreamObserver<WalletMessages.BalanceGrpc> responseObserver) {
+//    super.balance(request, responseObserver);
+//  }
+//
+//  @Override
+//  public void bet(WalletMessages.BetRequestGrpc request,
+//                  StreamObserver<WalletMessages.BetResponseGrpc> responseObserver) {
+//    super.bet(request, responseObserver);
+//  }
 
 //  @Override
 //  public void balanceRequest(WalletMessages.BalanceRequestGrpc grpcReq,

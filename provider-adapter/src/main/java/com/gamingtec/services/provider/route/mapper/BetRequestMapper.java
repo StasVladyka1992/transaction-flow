@@ -10,6 +10,7 @@ public class BetRequestMapper {
   public com.gamingtec.wallet.WalletMessages.BetRequestGrpc toGrpc(BetRequestDto dto){
     return WalletMessages.BetRequestGrpc.newBuilder()
         .setPartyId(dto.getPartyId())
+        .setAccountId(dto.getAccountId())
         .setPlatformId(dto.getPlatformId())
         .setPlatformCode(dto.getPlatformCode())
         .setGameId(dto.getGameId())

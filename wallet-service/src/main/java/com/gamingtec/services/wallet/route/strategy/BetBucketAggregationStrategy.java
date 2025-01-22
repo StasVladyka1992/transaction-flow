@@ -3,10 +3,8 @@ package com.gamingtec.services.wallet.route.strategy;
 import static com.gamingtec.services.event.util.Header.CORRELATION_ID;
 
 import com.gamingtec.services.event.dto.BalanceEvent;
-import com.gamingtec.services.event.dto.BetRequestEvent;
-import com.gamingtec.services.event.dto.BonusBalanceEvent;
-import com.gamingtec.services.event.dto.CashBalanceEvent;
 import com.gamingtec.services.wallet.route.model.BetBucket;
+import com.gamingtec.services.wallet.route.model.BetRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,16 +23,18 @@ public class BetBucketAggregationStrategy implements AggregationStrategy {
     String correlationId = getCorrelationId(newExchange);
     Object newBody = newExchange.getIn().getBody();
     Object oldBody = oldExchange.getIn().getBody();
-    handleBody(correlationId, newBody, oldBody);
-    return newExchange;
+    BetBucket result = handleBody(correlationId, newBody, oldBody);
+    oldExchange.getIn().setBody(result);
+    return oldExchange;
   }
 
-  private void handleBody(String correlationId, Object newBody, Object oldBody) {
+  private BetBucket handleBody(String correlationId, Object newBody, Object oldBody) {
     BetBucket result = aggregatedResponses.computeIfAbsent(correlationId, k -> new BetBucket());
     if (result.getPartyId() == 0) {
-      BetRequestEvent betRequestEvent = (BetRequestEvent) oldBody;
+      BetRequest betRequestEvent = (BetRequest) oldBody;
       result = BetBucket.builder()
           .partyId(betRequestEvent.getPartyId())
+          .accountId(betRequestEvent.getAccountId())
           .amount(betRequestEvent.getAmount())
           .currency(betRequestEvent.getCurrency())
           .brandId(betRequestEvent.getBrandId())
@@ -48,15 +48,11 @@ public class BetBucketAggregationStrategy implements AggregationStrategy {
           .build();
     }
 
-
-    if (newBody instanceof BonusBalanceEvent) {
-      BonusBalanceEvent bonusBalanceEvent = (BonusBalanceEvent) newBody;
-      result.setReleasedBonus(bonusBalanceEvent.getReleasedBonus());
-      result.setPlayableBonus(bonusBalanceEvent.getPlayableBonus());
-    } else if (newBody instanceof CashBalanceEvent) {
-      CashBalanceEvent cashBalanceEvent = (CashBalanceEvent) newBody;
-      result.setReal(cashBalanceEvent.getReal());
-    }
+    BalanceEvent balance = (BalanceEvent) newBody;
+    result.setReal(balance.getReal());
+    result.setReleasedBonus(balance.getReleasedBonus());
+    result.setPlayableBonus(balance.getPlayableBonus());
+    return result;
   }
 
   @Override

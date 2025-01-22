@@ -1,4 +1,4 @@
-package com.gamingtec.services.provider.route.dto;
+package com.gamingtec.services.wallet.route.model;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
@@ -14,16 +14,22 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BetRequestDto {
+public class BetRequest {
   private int partyId;
   private int accountId;
+
   private BigDecimal amount;
   private String currency;
+
+  private int brandId;
   private int platformId;
-  private String platformCode;
+  private String platformCode; // TODO if we have platformCode or id, why do we need second attribute? refactor
+
   private boolean sportbook;
+
   private int gameInfoId;
-  private String gameId;
+  private String gameId; // TODO if we have gameInfoId, why do we need gameId? refactor
+
   private String platformGameTranId;
   private String platformTranId;
 }

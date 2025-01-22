@@ -23,15 +23,16 @@ message BalanceGrpc{
 
 message BetRequestGrpc{
   uint32 partyId = 1;
-  uint32 platformId = 2;
-  string platformCode = 3;
-  string gameId = 4;
-  uint32 gameInfoId = 5;
-  bool sportbook = 6;
-  string playerCurrency = 7;
-  string platformGameTranId = 8;
-  string platformTranId = 9;
-  DecimalValue amount = 10;
+  uint32 accountId = 2;
+  uint32 platformId = 3;
+  string platformCode = 4;
+  string gameId = 5;
+  uint32 gameInfoId = 6;
+  bool sportbook = 7;
+  string playerCurrency = 8;
+  string platformGameTranId = 9;
+  string platformTranId = 10;
+  DecimalValue amount = 11;
 }
 
 message BetResponseGrpc{
