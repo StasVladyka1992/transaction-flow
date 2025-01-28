@@ -20,6 +20,7 @@ public class BetRequest {
 
   private BigDecimal amount;
   private String currency;
+  private Integer numDecimalPart;
 
   private int brandId;
   private int platformId;

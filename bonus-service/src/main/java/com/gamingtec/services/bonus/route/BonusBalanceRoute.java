@@ -1,5 +1,9 @@
 package com.gamingtec.services.bonus.route;
 
+import static com.gamingtec.services.event.route.RouteNames.KAFKA_BALANCE;
+import static com.gamingtec.services.event.route.RouteNames.KAFKA_BALANCE_REQUEST;
+import static com.gamingtec.services.event.route.RouteNames.KAFKA_BET_REQUEST;
+
 import com.gamingtec.services.bonus.service.BonusBalanceService;
 import com.gamingtec.services.event.dto.BalanceRequestEvent;
 import com.gamingtec.services.event.dto.BetRequestEvent;
@@ -15,24 +19,24 @@ public class BonusBalanceRoute extends RouteBuilder {
 
   @Override
   public void configure() {
-    from("kafka:balanceRequest?brokers=localhost:9095")
-        .log("Received balance event: ${body}")
+    from(KAFKA_BALANCE_REQUEST)
+        .log("Received balance event, correlationId: ${headers.correlationId}, ${body}")
         .unmarshal().json(JsonLibrary.Jackson, BalanceRequestEvent.class)
-        .log("Parsed balance request: ${body}")
+        .log("Parsed balance request, correlationId: ${headers.correlationId}, ${body}")
         .bean(bonusBalanceService, "getBonusBalance")
-        .log("Bonus balance: ${body}")
+        .log("Bonus balance, correlationId: ${headers.correlationId}, ${body}")
         .marshal().json(JsonLibrary.Jackson)
-        .to("kafka:balance?brokers=localhost:9095")
-        .log("Bonus balance was sent");
+        .to(KAFKA_BALANCE)
+        .log("Bonus balance was sent, correlationId ${headers.correlationId}");
 
-    from("kafka:betRequest?brokers=localhost:9095")
-        .log("Received bet event: ${body}")
+    from(KAFKA_BET_REQUEST)
+        .log("Received bet event, correlationId: ${headers.correlationId}, ${body}")
         .unmarshal().json(JsonLibrary.Jackson, BetRequestEvent.class)
-        .log("Received bet event: ${body}")
+        .log("Received bet event, correlationId: ${headers.correlationId}, ${body}")
         .bean(bonusBalanceService, "bet")
-        .log("Bonus balance after bet: ${body}")
+        .log("Bonus balance after bet, correlationId: ${headers.correlationId}, ${body}")
         .marshal().json(JsonLibrary.Jackson)
-        .to("kafka:balance?brokers=localhost:9095")
-        .log("Bonus balance was sent");
+        .to(KAFKA_BALANCE)
+        .log("Bonus balance was sent, correlationId: ${headers.correlationId}");
   }
 }

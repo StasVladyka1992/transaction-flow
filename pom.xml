@@ -12,6 +12,7 @@
         <module>wallet-api</module>
         <module>wallet-service</module>
         <module>bonus-service</module>
+        <module>cash-service</module>
         <module>wallet-grpc-client</module>
         <module>event-models</module>
     </modules>

@@ -5,8 +5,11 @@ import com.gamingtec.services.event.dto.BetRequestEvent;
 import com.gamingtec.services.event.dto.BonusBalanceEvent;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service("bonusBalanceService")
 @RequiredArgsConstructor
 class BonusBalanceServiceImpl implements BonusBalanceService {
@@ -22,11 +25,19 @@ class BonusBalanceServiceImpl implements BonusBalanceService {
 
   @Override
   public BonusBalanceEvent bet(BetRequestEvent event) {
-    return BonusBalanceEvent.builder()
+    BonusBalanceEvent bonusBalance = BonusBalanceEvent.builder()
         .partyId(event.getPartyId())
-        .releasedBonus(new BigDecimal(300))
-        .playableBonus(new BigDecimal(400))
+        .releasedBonus(new BigDecimal(300).subtract(event.getReleasedBonus()))
+        .playableBonus(new BigDecimal(400).subtract(event.getPlayableBonus()))
         .build();
+
+    wagerBet(event);
+    return bonusBalance;
+  }
+
+  @Override
+  public void wagerBet(BetRequestEvent event){ //TODO think about place where to initiate transaction.
+    log.info("Wagering request: {}", event);
   }
 }
 

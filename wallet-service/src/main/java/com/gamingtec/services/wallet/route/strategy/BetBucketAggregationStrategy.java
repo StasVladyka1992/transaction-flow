@@ -5,6 +5,7 @@ import static com.gamingtec.services.event.util.Header.CORRELATION_ID;
 import com.gamingtec.services.event.dto.BalanceEvent;
 import com.gamingtec.services.wallet.route.model.BetBucket;
 import com.gamingtec.services.wallet.route.model.BetRequest;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,13 +46,16 @@ public class BetBucketAggregationStrategy implements AggregationStrategy {
           .gameId(betRequestEvent.getGameId())
           .platformGameTranId(betRequestEvent.getPlatformGameTranId())
           .platformTranId(betRequestEvent.getPlatformTranId())
+          .real(BigDecimal.ZERO)
+          .releasedBonus(BigDecimal.ZERO)
+          .playableBonus(BigDecimal.ZERO)
           .build();
     }
 
     BalanceEvent balance = (BalanceEvent) newBody;
-    result.setReal(balance.getReal());
-    result.setReleasedBonus(balance.getReleasedBonus());
-    result.setPlayableBonus(balance.getPlayableBonus());
+    result.setReal(balance.getReal().add(result.getReal()));
+    result.setReleasedBonus(balance.getReleasedBonus().add(result.getReleasedBonus()));
+    result.setPlayableBonus(balance.getPlayableBonus().add(result.getPlayableBonus()));
     return result;
   }
 

@@ -7,4 +7,6 @@ import com.gamingtec.services.event.dto.BonusBalanceEvent;
 public interface BonusBalanceService {
   BonusBalanceEvent getBonusBalance(BalanceRequestEvent event);
   BonusBalanceEvent bet(BetRequestEvent event);
+
+  void wagerBet(BetRequestEvent event);
 }

@@ -20,7 +20,7 @@ class CashBalanceServiceImpl implements CashBalanceService {
   public CashBalanceEvent bet(BetRequestEvent event) {
     return CashBalanceEvent.builder()
         .partyId(event.getPartyId())
-        .real(new BigDecimal(300))
+        .real(new BigDecimal(300).subtract(event.getReal()))
         .build();
   }
 }

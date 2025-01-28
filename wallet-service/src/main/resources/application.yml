@@ -19,6 +19,16 @@
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+
+spring:
+  application:
+    name: "wallet"
+  data:
+    redis:
+      host: localhost
+      database: 0
+      port: 6379
+
 camel:
   component:
     kafka:
